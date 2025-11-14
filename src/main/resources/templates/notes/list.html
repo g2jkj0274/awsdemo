@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">메모 목록</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <h1 th:text="${title}">메모 목록</h1>
+    <nav>
+        <a th:href="@{/notes}">메모 목록</a>
+        <a th:href="@{/notes/new}">새 메모</a>
+        <a th:href="@{/health}" target="_blank">Health</a>
+    </nav>
+</header>
+
+<main>
+    <section class="content">
+        <div class="card">
+            <h2>메모 리스트</h2>
+            <p>MySQL에 저장된 메모 목록입니다.</p>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>제목</th>
+                    <th>작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="note : ${notes}">
+                    <td th:text="${note.id}">1</td>
+                    <td th:text="${note.title}">제목</td>
+                    <td th:text="${note.createdAt}">2025-01-01T00:00</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(notes)}">
+                    <td colspan="3">등록된 메모가 없습니다.</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="actions">
+                <a class="btn" th:href="@{/notes/new}">새 메모 작성</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 AWS + MySQL 배포 연습용 메모 웹앱</p>
+</footer>
+</body>
+</html>
